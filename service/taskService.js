@@ -18,7 +18,9 @@ async function elimina(id) {
 
 async function aggiorna(id,data) {
     const {title,completed} = data;
-    const task = await Task.findByIdAndUpdate(id,task);
+    const task = await Task.findByIdAndUpdate(id,data,{
+        new:true, runValidators:true
+    });
     return task;
 }
 

@@ -51,7 +51,7 @@ router.delete("/:id", async (req, res, next) => {
 //MODIFICA
 router.patch("/:id", validate(schema), async (req,res,next) => {
     try {
-        const task = taskService.aggiorna(req.params.id, req.body);
+        const task = await taskService.aggiorna(req.params.id, req.body);
         if(!task) {return res.status(404).json({error: "NOT_FOUND"})}
 
         res.json({task});
