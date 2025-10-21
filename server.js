@@ -26,6 +26,9 @@ mongoose.connect(process.env.MONGO_URI)
 const taskRoutes = require("./routes/tasks");
 app.use("/task", taskRoutes);
 
+app.get("/", (req, res) => {
+  res.send("✅ Server online e funzionante!");
+});
 //Rotta di saluto per verificare che il server risponda
 app.get(`/task/health`, (req, res) => {
     res.json({ status: `ok`}); //risponde con JSON {status: "ok"}

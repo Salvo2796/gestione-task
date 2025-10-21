@@ -64,9 +64,8 @@ router.patch("/:id", validate(schema), async (req,res,next) => {
 //RICERCA TASK COMPLETATI
 router.get("/completed", async (req,res,next) => {
     try {
-        const task = await taskService.completed();
-        if(!task) {return res.status(404).json({error: "NOT_FOUND"})}
-        res.json(task);
+        const tasks = await taskService.completed();
+        res.json(tasks); // anche se vuoto, restituisce un array []
     } catch (err) {
         next(err)
     }
