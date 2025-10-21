@@ -7,7 +7,8 @@ const router = express.Router();
 
 const schema = Joi.object({
     title: Joi.string().required(),
-    completed: Joi.boolean().default(false)
+    completed: Joi.boolean().default(false),
+    priority: Joi.string().valid("bassa","media", "alta").default("media")
 });
 
 //INSERIMENTO
@@ -55,6 +56,17 @@ router.patch("/:id", validate(schema), async (req,res,next) => {
         if(!task) {return res.status(404).json({error: "NOT_FOUND"})}
 
         res.json({task});
+    } catch (err) {
+        next(err)
+    }
+})
+
+//RICERCA TASK COMPLETATI
+router.get("/completed", async (req,res,next) => {
+    try {
+        const task = await taskService.completed();
+        if(!task) {return res.status(404).json({error: "NOT_FOUND"})}
+        res.json(task);
     } catch (err) {
         next(err)
     }
